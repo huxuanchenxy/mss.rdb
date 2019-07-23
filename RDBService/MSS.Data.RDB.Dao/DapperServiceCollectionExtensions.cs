@@ -16,21 +16,8 @@ namespace MSS.Data.RDB.Dao
             optionsSection.Bind(options);
             services.AddSingleton<DapperOptions>(options);
             services.AddTransient<ITableInfoRepo<TableInfo>, TableInfoRepo>();
-            
-            return services;
-        }
-
-        public static IServiceCollection AddDapper2(this IServiceCollection services, IConfiguration configuration)
-        {
-            if (services == null) throw new ArgumentNullException(nameof(services));
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
-            var optionsSection = configuration.GetSection("Dapper2");
-            var options = new DapperOptions();
-            optionsSection.Bind(options);
-            services.AddSingleton<DapperOptions>(options);
-
-            services.AddTransient<ITableInfoRepo<TableInfo>, TableInfoRepo>();
-
+            services.AddTransient<IEalarmRepo<Ealarm>, EalarmRepo>();
+            services.AddTransient<IElogRepo<Elog>, ElogRepo>();
             return services;
         }
     }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.Data.RDB.Dao", "MSS.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.Data.RDB.Rest", "MSS.Data.RDB.Rest\MSS.Data.RDB.Rest.csproj", "{2C06C38B-582F-4286-9AAE-1C62A7F36812}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSS.Data.RDB.Rest.Ess", "MSS.Data.RDB.Rest.Ess\MSS.Data.RDB.Rest.Ess.csproj", "{7FFB963B-0040-4BD4-9201-CA3270F9C351}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2C06C38B-582F-4286-9AAE-1C62A7F36812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C06C38B-582F-4286-9AAE-1C62A7F36812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C06C38B-582F-4286-9AAE-1C62A7F36812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFB963B-0040-4BD4-9201-CA3270F9C351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFB963B-0040-4BD4-9201-CA3270F9C351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFB963B-0040-4BD4-9201-CA3270F9C351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFB963B-0040-4BD4-9201-CA3270F9C351}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

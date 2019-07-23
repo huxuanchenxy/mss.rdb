@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MSS.API.Operlog.V1.Business;
-using System.Collections.Generic;
+using MSS.Data.RDB.Model;
+using MSS.Data.RDB.Rest.V1.Business;
 using System.Threading.Tasks;
 
-namespace MSS.API.Operlog.V1.Controllers
+namespace MSS.Data.RDB.Rest.V1.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -16,18 +16,16 @@ namespace MSS.API.Operlog.V1.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<HashSet<string>>> GetAllEqp()
+        public async Task<ApiResult> GetAllEqp()
         {
-
             var ret = await _service.GetAllEqp();
             return ret;
         }
 
-        [HttpGet("{tablename}")]
-        public async Task<ActionResult<HashSet<string>>> GetAllPID(string tablename)
+        [HttpGet("{eqpid}")]
+        public async Task<ApiResult> GetPoints(string eqpid)
         {
-
-            var ret = await _service.GetAllPID(tablename);
+            var ret = await _service.GetPoints(eqpid);
             return ret;
         }
 

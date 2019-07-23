@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MSS.Common.Consul;
 using MSS.Data.RDB.Dao;
-using MSS.Data.RDB.Rest.Infrastructure;
+using MSS.Data.RDB.Rest.Ess.Infrastructure;
 
-namespace MSS.Data.RDB.Rest
+namespace MSS.Data.RDB.Rest.Ess
 {
     public class Startup
     {

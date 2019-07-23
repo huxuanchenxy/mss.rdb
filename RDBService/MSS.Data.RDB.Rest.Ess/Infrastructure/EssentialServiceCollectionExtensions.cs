@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MSS.Data.RDB.Rest.V1.Business;
+using MSS.Data.RDB.Rest.Ess.V1.Business;
 using System;
 
-namespace MSS.Data.RDB.Rest.Infrastructure
+namespace MSS.Data.RDB.Rest.Ess.Infrastructure
 {
     public static class EssentialServiceCollectionExtensions
     {
@@ -10,7 +10,8 @@ namespace MSS.Data.RDB.Rest.Infrastructure
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddTransient<ITableInfoService, TableInfoService>();
+            services.AddTransient<IEalarmService, EalarmService>();
+            services.AddTransient<IElogService, ElogService>();
             return services;
         }
     }

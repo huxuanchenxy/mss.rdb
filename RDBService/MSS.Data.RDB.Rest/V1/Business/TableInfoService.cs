@@ -1,9 +1,10 @@
 ﻿using MSS.Data.RDB.Dao;
 using MSS.Data.RDB.Model;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MSS.API.Operlog.V1.Business
+namespace MSS.Data.RDB.Rest.V1.Business
 {
     public class TableInfoService : ITableInfoService
     {
@@ -14,21 +15,48 @@ namespace MSS.API.Operlog.V1.Business
         {
             _repo = repo;
         }
-        public async Task<HashSet<string>> GetAllEqp()
+
+        public async Task<ApiResult> GetAllEqp()
         {
-            return await _repo.GetAllEqp();
+            ApiResult ret = new ApiResult();
+            try
+            {
+                List<object> data = await _repo.GetAllEqp();
+                ret.code = Code.Success;
+                ret.data = data;
+            }
+            catch (Exception ex)
+            {
+                ret.code = Code.Failure;
+                ret.msg = ex.Message;
+            }
+
+            return ret;
         }
 
-        public async Task<HashSet<string>> GetAllPID(string tablename)
+        public async Task<ApiResult> GetPoints(string tablename)
         {
-            return await _repo.GetAllPID(tablename);
+            ApiResult ret = new ApiResult();
+            try
+            {
+                List<object> data = await _repo.GetPoints(tablename);
+                ret.code = Code.Success;
+                ret.data = data;
+            }
+            catch (Exception ex)
+            {
+                ret.code = Code.Failure;
+                ret.msg = ex.Message;
+            }
+
+            return ret;
         }
 
     }
 
     public interface ITableInfoService
     {
-        Task<HashSet<string>> GetAllEqp();
-        Task<HashSet<string>> GetAllPID(string tablename);
+        Task<ApiResult> GetAllEqp();
+        Task<ApiResult> GetPoints(string tablename);
     }
 }
