@@ -6,8 +6,7 @@ namespace MSS.Data.RDB.Model
 {
     public class TableInfo : BaseEntity
     {
-        public string table_name { get; set; }
-        public string column_name { get; set; }
+        public string TableName { get; set; }
 
     }
 

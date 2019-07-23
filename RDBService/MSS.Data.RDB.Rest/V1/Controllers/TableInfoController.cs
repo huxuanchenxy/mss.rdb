@@ -15,11 +15,19 @@ namespace MSS.API.Operlog.V1.Controllers
             _service = service;
         }
 
-        [HttpGet("getallpid")]
-        public async Task<ActionResult<HashSet<string>>> GetAllPID()
+        [HttpGet]
+        public async Task<ActionResult<HashSet<string>>> GetAllEqp()
         {
 
-            var ret = await _service.GetAllPID();
+            var ret = await _service.GetAllEqp();
+            return ret;
+        }
+
+        [HttpGet("{tablename}")]
+        public async Task<ActionResult<HashSet<string>>> GetAllPID(string tablename)
+        {
+
+            var ret = await _service.GetAllPID(tablename);
             return ret;
         }
 

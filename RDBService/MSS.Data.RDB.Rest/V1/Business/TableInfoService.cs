@@ -14,15 +14,21 @@ namespace MSS.API.Operlog.V1.Business
         {
             _repo = repo;
         }
-        public async Task<HashSet<string>> GetAllPID()
+        public async Task<HashSet<string>> GetAllEqp()
         {
-            return await _repo.GetAllPID();
+            return await _repo.GetAllEqp();
+        }
+
+        public async Task<HashSet<string>> GetAllPID(string tablename)
+        {
+            return await _repo.GetAllPID(tablename);
         }
 
     }
 
     public interface ITableInfoService
     {
-        Task<HashSet<string>> GetAllPID();
+        Task<HashSet<string>> GetAllEqp();
+        Task<HashSet<string>> GetAllPID(string tablename);
     }
 }

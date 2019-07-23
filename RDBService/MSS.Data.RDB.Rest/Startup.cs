@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MSS.API.Operlog.Infrastructure;
+using MSS.Common.Consul;
 using MSS.Data.RDB.Dao;
 using System;
 
@@ -36,7 +38,7 @@ namespace MSS.Data.RDB.Rest
 
             services.AddDapper(Configuration);
             services.AddEssentialService();
-
+            services.AddConsulService(Configuration);
             //services.AddAuthentication("Bearer")//添加授权模式
             //.AddIdentityServerAuthentication(Options =>
             //{
@@ -73,7 +75,7 @@ namespace MSS.Data.RDB.Rest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime, IOptions<ConsulServiceEntity> consulService)
         {
             if (env.IsDevelopment())
             {
@@ -87,7 +89,7 @@ namespace MSS.Data.RDB.Rest
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-            
+            app.RegisterConsul(lifetime, consulService);
             app.UseCors("AllowAll");
             app.UseMvc();
         }
