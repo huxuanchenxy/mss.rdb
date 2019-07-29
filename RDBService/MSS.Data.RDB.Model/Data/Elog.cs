@@ -33,4 +33,9 @@ namespace MSS.Data.RDB.Model
         public string EQType { get; set; }
         public string PushGraph { get; set; }
     }
+
+    public class ElogPageReq : BasePageParam
+    {
+        public string DeviceID { get; set; }
+    }
 }

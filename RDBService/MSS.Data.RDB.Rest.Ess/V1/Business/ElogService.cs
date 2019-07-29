@@ -31,10 +31,30 @@ namespace MSS.Data.RDB.Rest.Ess.V1.Business
 
             return ret;
         }
+
+        public async Task<ApiResult> ListPageElog(ElogPageReq param)
+        {
+            ApiResult ret = new ApiResult();
+            try
+            {
+                var data = await _repo.ListPageElog(param);
+                ret.code = Code.Success;
+                ret.data = data;
+            }
+            catch (Exception ex)
+            {
+                ret.code = Code.Failure;
+                ret.msg = ex.Message;
+            }
+
+            return ret;
+        }
+
     }
 
     public interface IElogService
     {
         Task<ApiResult> GetElogList(int ack);
+        Task<ApiResult> ListPageElog(ElogPageReq param);
     }
 }
