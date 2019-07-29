@@ -8,16 +8,16 @@ namespace MSS.Data.RDB.Model
 
     public class Elog : BaseEntity
     {
-        public System.DateTime ETime { get; set; }
+        public string  ETime { get; set; }
         public short ETime_MS { get; set; }
         public string PID { get; set; }
         public sbyte ELevel { get; set; }
         public sbyte Ack { get; set; }
-        public System.DateTime OriginTime { get; set; }
+        public string OriginTime { get; set; }
         public short OriginTime_MS { get; set; }
-        public System.DateTime RestoreTime { get; set; }
+        public string RestoreTime { get; set; }
         public short RestoreTime_MS { get; set; }
-        public System.DateTime AckTime { get; set; }
+        public string AckTime { get; set; }
         public short AckTime_MS { get; set; }
         public string NodeID { get; set; }
         public string User { get; set; }
