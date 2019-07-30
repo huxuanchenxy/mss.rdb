@@ -14,11 +14,11 @@ namespace MSS.Data.RDB.Model
         /// <summary>
         /// 当前页
         /// </summary>
-        public int page { get; set; }
+        public int? page { get; set; }
         /// <summary>
         /// 每页显示行数
         /// </summary>
-        public int rows { get; set; }
+        public int? rows { get; set; }
         /// <summary>
         /// 排序字段
         /// </summary>

@@ -32,12 +32,21 @@ namespace MSS.Data.RDB.Rest.Ess.V1.Business
             return ret;
         }
 
-        public async Task<ApiResult> ListPageElog(ElogPageReq param)
+        public async Task<ApiResult> ListPageElog(ElogReq param)
         {
             ApiResult ret = new ApiResult();
             try
             {
-                var data = await _repo.ListPageElog(param);
+                List<PageData<Elog>> data = new List<PageData<Elog>>();
+                foreach (var p1 in param.PIDList)
+                {
+                    if (string.IsNullOrEmpty(p1.PID))
+                    {
+                        continue;
+                    }
+                    var d = await ListPageElogPID(p1);
+                    data.Add(d);
+                }
                 ret.code = Code.Success;
                 ret.data = data;
             }
@@ -50,11 +59,23 @@ namespace MSS.Data.RDB.Rest.Ess.V1.Business
             return ret;
         }
 
+        public async Task<PageData<Elog>> ListPageElogPID(ElogPageReq param)
+        {
+            param.page = param.page != null ? param.page : 1;
+            param.rows = param.rows != null ? param.rows : 20;
+            param.sort = !string.IsNullOrEmpty(param.sort) ? param.sort : "ETime";
+            param.order = !string.IsNullOrEmpty(param.order) ? param.order : "ASC";
+            var data = await _repo.ListPageElogPID(param);
+            return data;
+        }
+
     }
 
     public interface IElogService
     {
         Task<ApiResult> GetElogList(int ack);
-        Task<ApiResult> ListPageElog(ElogPageReq param);
+        Task<ApiResult> ListPageElog(ElogReq param);
+
+        Task<PageData<Elog>> ListPageElogPID(ElogPageReq param);
     }
 }

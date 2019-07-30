@@ -36,6 +36,14 @@ namespace MSS.Data.RDB.Model
 
     public class ElogPageReq : BasePageParam
     {
-        public string DeviceID { get; set; }
+        public string PID { get; set; }
+        public string OriginTimeStart { get; set; }
+        public string OriginTimeEnd { get; set; }
+    }
+
+    public class ElogReq
+    {
+        // public string DeviceID { get; set; }
+        public List<ElogPageReq> PIDList { get; set; }
     }
 }

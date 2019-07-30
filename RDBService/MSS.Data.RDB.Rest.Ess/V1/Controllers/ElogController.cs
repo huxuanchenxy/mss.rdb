@@ -23,8 +23,8 @@ namespace MSS.Data.RDB.Rest.Ess.V1.Controllers
             return ret;
         }
 
-        [HttpGet("page")]
-        public async Task<ActionResult<ApiResult>> ListPageElog([FromQuery]ElogPageReq query)
+        [HttpPost("page")]
+        public async Task<ActionResult<ApiResult>> ListPageElog(ElogReq query)
         {
             ApiResult ret = new ApiResult { code = Code.Failure };
             ret = await _service.ListPageElog(query);
