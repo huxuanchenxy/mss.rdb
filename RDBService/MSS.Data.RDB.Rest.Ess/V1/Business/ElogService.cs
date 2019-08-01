@@ -63,7 +63,7 @@ namespace MSS.Data.RDB.Rest.Ess.V1.Business
         {
             param.page = param.page != null ? param.page : 1;
             param.rows = param.rows != null ? param.rows : 20;
-            param.sort = !string.IsNullOrEmpty(param.sort) ? param.sort : "ETime";
+            param.sort = !string.IsNullOrEmpty(param.sort) ? param.sort : "OriginTime";
             param.order = !string.IsNullOrEmpty(param.order) ? param.order : "ASC";
             var data = await _repo.ListPageElogPID(param);
             return data;

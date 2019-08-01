@@ -18,6 +18,7 @@ namespace MSS.Data.RDB.Dao
             services.AddTransient<ITableInfoRepo<TableInfo>, TableInfoRepo>();
             services.AddTransient<IEalarmRepo<Ealarm>, EalarmRepo>();
             services.AddTransient<IElogRepo<Elog>, ElogRepo>();
+            services.AddTransient<IHfrqRepo<Hfrq>, HfrqRepo>();
             return services;
         }
     }
