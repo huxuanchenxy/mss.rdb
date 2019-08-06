@@ -65,7 +65,8 @@ namespace rdbMicroservice.Service
                                     var num = _context.Events.LongCount() - tag;
                                     if (num == 0)
                                         continue;
-                                    var events = _context.Events.FromSql("SELECT * FROM e_log LIMIT {0},{1}", tag, num).AsNoTracking().ToList();
+                                    //var events = _context.Events.FromSql("SELECT * FROM e_log LIMIT {0},{1}", tag, num).AsNoTracking().ToList();
+                                    var events = _context.Events.FromSql(" SELECT a.ETime ,a.ETime_MS ,a.PID ,a.ELevel ,a.Ack ,a.OriginTime ,a.OriginTime_MS ,a.RestoreTime ,a.RestoreTime_MS ,a.AckTime ,a.AckTime_MS ,a.NodeID ,a.User ,a.Src ,a.Type ,a.EQDes ,a.PIDDes ,a.ValueDisplay ,a.Des ,a.StnNo ,a.StnName ,a.SpecialtyNo ,a.EQType ,a.PushGraph from e_log as a inner join ( SELECT ETime, ETime_MS, PID from e_log limit {0},{1} ) as b on a.ETime = b.ETime and a.ETime_MS = b.ETime_MS and a.PID = b.PID ", tag, num).AsNoTracking().ToList();
                                     tag = current;
                                     foreach (var e in events)
                                     {
