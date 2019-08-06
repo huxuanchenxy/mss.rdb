@@ -24,11 +24,11 @@ namespace rdbMicroservice.Repository
 
             _points = db.GetCollection<SPoint>("points");
             _points.EnsureIndex(x => x.PID, true);
-            _points.Delete(x => true);
+            //_points.Delete(x => true);
             _tables = db.GetCollection<STable>("tables");
             _tables.EnsureIndex(x => x.Name, true);
-            _tables.Delete(x => true);
-            AddTestData();
+            //_tables.Delete(x => true);
+            //AddTestData();
 
             _rdbService = (RdbService)rdbService;
             _subscribePointDictionary = (SubscribePointDictionary)subscribePointDictionary;
