@@ -24,7 +24,7 @@ namespace MSS.Data.RDB.Rest
             return WebHost.CreateDefaultBuilder(args)
 
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                 .UseIISIntegration()
+                 //.UseIISIntegration()
 
                 .UseKestrel(options =>
                 {

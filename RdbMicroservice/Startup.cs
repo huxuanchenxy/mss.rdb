@@ -38,6 +38,7 @@ namespace rdbMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddConsulService(Configuration);
             services.AddDbContext<EssDbContext>(d => d.UseMySQL(Configuration.GetConnectionString("Default")));
             services.AddSingleton<IRdbService, RdbService>();
             services.AddSingleton<IProduicerFactoryService, KafkaProduicerFactoryService>();       
@@ -48,7 +49,7 @@ namespace rdbMicroservice
             services.AddHostedService<EventHostedService>();
             services.AddHostedService<MainHostedService>();
 
-            services.AddConsulService(Configuration);
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
