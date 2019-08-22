@@ -24,7 +24,7 @@ namespace rdbMicroservice.Service
             this.messageQueue = messageQueue;
             //_logger = loggerFactory.CreateLogger<QueuedHostedService>();
             _producer = produicerFactoryService.GetDefaultProducer();
-        }         
+        }
 
         protected async override Task ExecuteAsync(CancellationToken cancellationToken)
         {
@@ -52,10 +52,21 @@ namespace rdbMicroservice.Service
                     point.Read("DW", ref dw);
                     point.Read("DDW", ref ddw);
                     point.Read("UpdateTime", ref updateTime);
-                    RdbMessage message = new RdbMessage { PID = point.PID, Value = value, Time= dateTime,UT = ut
-                    , DDW = ddw, DW = dw,UP = up,UUP = uup,UpdateTime = updateTime};
+                    RdbMessage message = new RdbMessage
+                    {
+                        PID = point.PID,
+                        Value = value,
+                        time = ConvertDataTimeToLong(dateTime),
+                        UT = ut
+                    ,
+                        DDW = ddw,
+                        DW = dw,
+                        UP = up,
+                        UUP = uup,
+                        UpdateTime = updateTime
+                    };
                     await _producer.ProduceAsync("data", new Message<Null, string> { Value = JsonConvert.SerializeObject(message) });
-                 
+
                 }
                 catch (Exception ex)
                 {
@@ -65,6 +76,16 @@ namespace rdbMicroservice.Service
             }
 
             Log.Information("Queued Hosted Service is stopping.");
+        }
+
+        public static long ConvertDataTimeToLong(DateTime dt)
+        {
+            //DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            DateTime dtStart = new DateTime(1970, 1, 1);
+            TimeSpan toNow = dt.Subtract(dtStart);
+            long timeStamp = toNow.Ticks;
+            timeStamp = long.Parse(timeStamp.ToString().Substring(0, timeStamp.ToString().Length - 4));
+            return timeStamp;
         }
 
         //public Task StartAsync(CancellationToken cancellationToken)

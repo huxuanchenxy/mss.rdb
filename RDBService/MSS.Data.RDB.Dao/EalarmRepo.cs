@@ -24,7 +24,7 @@ namespace MSS.Data.RDB.Dao
             {
                 List<Ealarm> ret = new List<Ealarm>();
 
-                string sql1 = $@" select * from e_alarm WHERE Ack =  {ack} ;";
+                string sql1 = $@" select * from e_alarm WHERE Type <> 1 AND Ack =  {ack} ;";
 
                 ret = (await c.QueryAsync<Ealarm>(sql1.ToString())).ToList();
                 return ret;
