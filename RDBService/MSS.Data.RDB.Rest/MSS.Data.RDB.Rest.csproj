@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MSS\commons\MSS.API.Common\MSS.API.Common.csproj" />
     <ProjectReference Include="..\MSS.Data.RDB.Dao\MSS.Data.RDB.Dao.csproj" />
     <ProjectReference Include="..\MSS.Data.RDB.Model\MSS.Data.RDB.Model.csproj" />
   </ItemGroup>
