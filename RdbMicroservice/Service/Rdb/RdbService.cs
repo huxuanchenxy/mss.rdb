@@ -44,9 +44,16 @@ namespace rdbMicroservice.Service
                 {
                   await  Task.Delay(10000);
                     while (!RdbProxy.IsConnectActive())
-                    {                       
-                        RdbProxy.UnInit();
-                        Init();                 
+                    {
+                        try
+                        {
+                            RdbProxy.UnInit();
+                            Init();
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex.ToString());
+                        }
 
                     }
                 }
@@ -58,18 +65,25 @@ namespace rdbMicroservice.Service
         }
         public void Init()
         {
-
-            RdbProxy.Init(rdbServers);
-            if (RdbProxy.Start())
+            try
             {
-                Started = true;
-                _logger.LogInformation("RDBSrv连接成功" + System.DateTime.Now);
+                _logger.LogWarning("开始准备连接RDBSrv");
+                RdbProxy.Init(rdbServers);
+                if (RdbProxy.Start())
+                {
+                    Started = true;
+                    _logger.LogWarning("RDBSrv连接成功");
+                }
+                else
+                {
+                    Started = false;
+                    _logger.LogError("RDBSrv连接失败");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Started = false;
-                _logger.LogInformation("RDBSrv连接失败" + System.DateTime.Now);
-            } 
+                _logger.LogError(ex.ToString());
+            }
         }
 
         public void UnInit()

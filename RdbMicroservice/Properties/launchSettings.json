@@ -19,6 +19,7 @@
     },
     "rdbMicroservice": {
       "commandName": "Project",
+      "commandLineArgs": "6003",
       "launchUrl": "api/pointsubscribe",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

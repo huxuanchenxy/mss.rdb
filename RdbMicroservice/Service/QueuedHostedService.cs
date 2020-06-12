@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,23 +11,25 @@ namespace rdbMicroservice.Service
 
     public class QueuedHostedService : BackgroundService
     {
-        //private readonly ILogger _logger;
+        private readonly ILogger<QueuedHostedService> _logger;
         private readonly IProducer<Null, string> _producer;
         public IBackgroundQueue messageQueue { get; }
 
         public QueuedHostedService(IBackgroundQueue messageQueue
             //,
             //ILoggerFactory loggerFactory
+            ,ILogger<QueuedHostedService> logger
             , IProduicerFactoryService produicerFactoryService)
         {
             this.messageQueue = messageQueue;
             //_logger = loggerFactory.CreateLogger<QueuedHostedService>();
             _producer = produicerFactoryService.GetDefaultProducer();
+            _logger = logger;
         }
 
         protected async override Task ExecuteAsync(CancellationToken cancellationToken)
         {
-            Log.Information("Queued Hosted Service is starting.");
+            _logger.LogWarning("Queued Hosted ToKafkaData Service is starting.");
             while (!cancellationToken.IsCancellationRequested)
             {
                 var point = await messageQueue.DequeueAsync(cancellationToken);
@@ -70,12 +71,12 @@ namespace rdbMicroservice.Service
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex,
+                    _logger.LogError(ex,
                        $"Error occurred executing ExecuteAsync.");
                 }
             }
 
-            Log.Information("Queued Hosted Service is stopping.");
+            _logger.LogWarning("Queued Hosted ToKafkaData Service is stopping.");
         }
 
         public static long ConvertDataTimeToLong(DateTime dt)

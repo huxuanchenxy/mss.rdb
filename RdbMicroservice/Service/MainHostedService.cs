@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using rdbMicroservice.Repository;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +12,21 @@ namespace rdbMicroservice.Service
 {
     internal class MainHostedService : IHostedService
     {
-        //private readonly ILogger _logger;
+        private readonly ILogger<MainHostedService> _logger;
 
         public MainHostedService(IServiceProvider services
-            //ILogger<MainHostedService> logger
+            ,ILogger<MainHostedService> logger
             )
         {
             Services = services;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public IServiceProvider Services { get; }
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Log.Information(
+            _logger.LogWarning(
                 "Service Hosted Service is starting.");
 
             StartWork();
@@ -36,7 +35,7 @@ namespace rdbMicroservice.Service
 
         private void StartWork()
         {
-            Log.Information(
+            _logger.LogWarning(
                 "Service Hosted Service is working.");
             Task.Run(() => {
                 using (var scope = Services.CreateScope())
@@ -89,7 +88,7 @@ namespace rdbMicroservice.Service
         }
         private void StopWork()
         {
-            Log.Information(
+            _logger.LogWarning(
                 "Service Hosted Service is stop working.");
 
             using (var scope = Services.CreateScope())
@@ -104,9 +103,8 @@ namespace rdbMicroservice.Service
         }
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Log.Information(
+            _logger.LogWarning(
                 " Service Hosted Service is stopping.");
-
             return Task.CompletedTask;
         }
     }

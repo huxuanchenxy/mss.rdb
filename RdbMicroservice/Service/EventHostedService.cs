@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using rdbMicroservice.Repository;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +16,18 @@ namespace rdbMicroservice.Service
 {
     public class EventHostedService : IHostedService, IDisposable
     {
-        //private readonly ILogger _logger;
+        private readonly ILogger<EventHostedService> _logger;
         private CancellationTokenSource source;
         private EssDbContext _context;
         private IProducer<Null, string> _producer;
         private long tag = -1;
         public IServiceProvider Services { get; }
         public EventHostedService(IServiceProvider services, IProduicerFactoryService produicerFactoryService
-            //ILogger<EventHostedService> logger
+            ,ILogger<EventHostedService> logger
             )
         {
             Services = services;
-            //_logger = logger;
+            _logger = logger;
 
             _producer = produicerFactoryService.GetNewProducer();
             source = new CancellationTokenSource();
@@ -37,7 +36,7 @@ namespace rdbMicroservice.Service
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Log.Information("Timed Background Service is starting.");
+            _logger.LogWarning("Timed Background Elog Service is starting.");
             DoWork();
             return Task.CompletedTask;
 
@@ -77,7 +76,7 @@ namespace rdbMicroservice.Service
                             }
                             catch (MySqlException ex)
                             {
-                                Log.Error(ex.ToString());
+                                _logger.LogError("Elog Error:" + ex.ToString());
 
                             }
 
@@ -94,7 +93,7 @@ namespace rdbMicroservice.Service
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            Log.Information("Timed Background Service is stopping.");
+            _logger.LogWarning("Timed Background Elog Service is stopping.");
             source.Cancel();
             return Task.CompletedTask;
         }
